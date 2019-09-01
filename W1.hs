@@ -78,15 +78,29 @@ isZero x
 -- Ex 8: implement using recursion a function sumTo such that
 --   sumTo n
 -- computes the sum 1+2+...+n
+sumToHelperPos :: Integer -> Integer -> Integer
+sumToHelperPos 0 r = r
+sumToHelperPos x r = sumToHelperPos (x-1) (r+x)
+
+sumToHelperNeg :: Integer -> Integer -> Integer
+sumToHelperNeg 0 r = r
+sumToHelperNeg x r = sumToHelperNeg (x+1) (r-x)
 
 sumTo :: Integer -> Integer
-sumTo = undefined
+sumTo n
+  | n == 0  = 0
+  | n > 0   = sumToHelperPos n 0
+  | n < 0   = sumToHelperNeg n 0
 
 -- Ex 9: power n k should compute n to the power k (i.e. n^k)
 -- Use recursion.
 
+powerHelper :: Integer -> Integer -> Integer -> Integer
+powerHelper n 0 r = r
+powerHelper n k r = powerHelper n (k-1) r*n
+
 power :: Integer -> Integer -> Integer
-power = undefined
+power n k = powerHelper n k 1
 
 -- Ex 10: ilog2 n should be the number of times you can halve the
 -- integer n (rounding down) before you get 1.
