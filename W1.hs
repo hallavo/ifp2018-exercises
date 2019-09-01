@@ -127,7 +127,10 @@ ilog2 x = ilog2Helper x 0
 -- Hint! pattern matching is your friend.
 
 binomial :: Integer -> Integer -> Integer
-binomial = undefined
+binomial n k
+  | n == 0 && k > 0 = 0
+  | k == 0          = 1
+  | otherwise       = (binomial (n-1) k) + (binomial (n-1) (k-1))
 
 -- Ex 12: The tribonacci numbers are defined by the equations
 --
