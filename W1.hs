@@ -108,8 +108,14 @@ power n k = powerHelper n k 1
 -- Use recursion to define ilog2. Use the function "div" for integer
 -- division.
 
+
+-- NOTE TO SELF: What if x == -10? Problem?
+ilog2Helper :: Integer -> Integer -> Integer
+ilog2Helper 1 r = r
+ilog2Helper x r = ilog2Helper (x `div` 2) (r+1)
+
 ilog2 :: Integer -> Integer
-ilog2 = undefined
+ilog2 x = ilog2Helper x 0 
 
 -- Ex 11: compute binomial coefficients using recursion. Binomial
 -- coefficients are defined by the following equations:
