@@ -141,9 +141,16 @@ binomial n k
 --
 -- Implement an efficient, linear time, recursive function that
 -- computes T(n). You'll probably want to define a helper function.
+tribonacciHelper :: Integer -> Integer -> Integer -> Integer -> Integer
+tribonacciHelper 0 x y z = z
+tribonacciHelper n x y z = tribonacciHelper (n-1) y z (x+y+z)
 
 tribonacci :: Integer -> Integer
-tribonacci = undefined
+tribonacci n
+  | n == 1     = 1
+  | n == 2     = 1
+  | n == 3     = 2
+  | otherwise  = tribonacciHelper (n-3) 1 1 2
 
 -- Ex 13: implement the euclidean algorithm for finding the greatest
 -- common divisor: http://en.wikipedia.org/wiki/Euclidean_algorithm
