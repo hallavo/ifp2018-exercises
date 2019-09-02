@@ -155,14 +155,10 @@ tribonacci n
 -- Ex 13: implement the euclidean algorithm for finding the greatest
 -- common divisor: http://en.wikipedia.org/wiki/Euclidean_algorithm
 
-myGcdSolve :: Integer -> Integer -> Integer
-myGcdSolve 0 b = b
-myGcdSolve a b = myGcdSolve (a `div` b) a
-
 myGcd :: Integer -> Integer -> Integer
-myGcd x y
-  | x <= y  = myGcdSolve x y
-  | x  > y  = myGcdSolve y x
+myGcd 0 y = y
+myGcd x 0 = x
+myGcd x y = myGcd y (mod x y)
 
 -- Ex 14: The Haskell Prelude (standard library) defines the type
 -- Ordering with values LT, GT and EQ. You try out Ordering by
