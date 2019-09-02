@@ -202,7 +202,11 @@ funnyCompare x y
 -- expression or define a helper function.
 
 funnyMin :: Int -> Int -> Int
-funnyMin = undefined
+funnyMin x y =
+  case funnyCompare x y of
+          LT -> x
+          GT -> y
+          EQ -> y
 
 -- Ex 16: implement the recursive function pyramid that returns
 -- strings like this:
