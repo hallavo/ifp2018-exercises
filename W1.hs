@@ -155,8 +155,14 @@ tribonacci n
 -- Ex 13: implement the euclidean algorithm for finding the greatest
 -- common divisor: http://en.wikipedia.org/wiki/Euclidean_algorithm
 
+myGcdSolve :: Integer -> Integer -> Integer
+myGcdSolve 0 b = b
+myGcdSolve a b = myGcdSolve (a `div` b) a
+
 myGcd :: Integer -> Integer -> Integer
-myGcd = undefined
+myGcd x y
+  | x <= y  = myGcdSolve x y
+  | x  > y  = myGcdSolve y x
 
 -- Ex 14: The Haskell Prelude (standard library) defines the type
 -- Ordering with values LT, GT and EQ. You try out Ordering by
@@ -184,7 +190,12 @@ myGcd = undefined
 --   funnyCompare 2 3 ==> LT
 
 funnyCompare :: Int -> Int -> Ordering
-funnyCompare = undefined
+funnyCompare x y
+  | odd x  && even y = GT
+  | even x && odd y  = LT
+  | x < y            = LT
+  | x == y           = EQ
+  | x > y            = GT
 
 -- Ex 15: Implement the function funnyMin that returns the minimum of
 -- its two arguments, according to the ordering implemented by
