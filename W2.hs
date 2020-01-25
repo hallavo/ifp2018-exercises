@@ -30,13 +30,14 @@ import Data.Char
 -- Ex 1: Define the constant years, that is a list of the values 1982,
 -- 2004 and 2012 in this order.
 
-years = undefined
+years = [1982, 2004, 2012]
 
 -- Ex 2: define the function measure that for an empty list returns -1
 -- and for other lists returns the length of the list.
 
 measure :: [String] -> Int
-measure ss = undefined
+measure [] = -1
+measure ss = length ss
 
 -- Ex 3: define the function takeFinal, which returns the n last
 -- elements of the given list.
@@ -44,7 +45,9 @@ measure ss = undefined
 -- If the list is shorter than n, return all elements.
 
 takeFinal :: Int -> [Int] -> [Int]
-takeFinal n xs = undefined
+takeFinal n xs
+    | length xs <= n  = xs
+    | otherwise       = takeFinal n (tail xs)
 
 -- Ex 4: remove the nth element of the given list. More precisely,
 -- return a list that is identical to the given list except the nth
@@ -59,7 +62,7 @@ takeFinal n xs = undefined
 -- The [a] in the type signature means "a list of any type"
 
 remove :: Int -> [a] -> [a]
-remove i xs = undefined
+remove n xs = (take n xs) ++ (drop (n+1) xs)
 
 -- Ex 5: substring i n s should return the length n substring of s
 -- starting at index i.
@@ -67,7 +70,7 @@ remove i xs = undefined
 -- Remember that strings are lists!
 
 substring :: Int -> Int -> String -> String
-substring i n s = undefined
+substring i n s = take n (drop i s)
 
 -- Ex 6: implement the function mymax that takes as argument a
 -- measuring function (of type a -> Int) and two values (of type a).
@@ -83,16 +86,24 @@ substring i n s = undefined
 --  mymax head   [1,2,3] [4,5]  ==>  [4,5]
 
 mymax :: (a -> Int) -> a -> a -> a
-mymax measure a b = undefined
+mymax measure a b
+    | measure a >= measure b  = a
+    | measure a <  measure b  = b
 
 -- Ex 7: countPalindromes receives a list of strings and returns a
 -- count of how many of the strings are palindromes (i.e. how many
 -- strings are the same when reversed)
 --
 -- Remember the functions length, filter and reverse
+isPalindrome :: String -> Bool
+isPalindrome s = (s == reverse s)
+
+boolToInt :: Bool -> Int
+boolToInt True = 1
+boolToInt False = 0
 
 countPalindromes :: [String] -> Int
-countPalindromes ss = undefined
+countPalindromes ss = foldr (+) 0 $ map boolToInt $ map isPalindrome ss 
 
 -- Ex 8: Implement a function funny, that
 --  - takes in a list of strings
