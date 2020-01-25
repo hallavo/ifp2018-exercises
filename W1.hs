@@ -250,8 +250,13 @@ pyramid n  = pyramidHelper n 1 "0"
 -- Ps. your function doesn't need to work for inputs 0 and 1, but
 -- remember this in the next exercise!
 
+smallestDivisorHelper :: Integer -> Integer -> Integer
+smallestDivisorHelper x i
+    | mod x i == 0   = i
+    | otherwise      = smallestDivisorHelper x (i+1)
+
 smallestDivisor :: Integer -> Integer
-smallestDivisor = undefined
+smallestDivisor x = smallestDivisorHelper x 2
 
 -- Ex 18: implement a function isPrime that checks if the given number
 -- is a prime number. Use the function smallestDivisor.
@@ -259,11 +264,16 @@ smallestDivisor = undefined
 -- Ps. 0 and 1 are not prime numbers
 
 isPrime :: Integer -> Bool
-isPrime = undefined
+isPrime x
+    | x <= 1                  = False
+    | smallestDivisor x == x  = True
+    | otherwise               = False
 
 -- Ex 19: implement a function nextPrime that returns the first prime
 -- number that comes after the given number. Use the function isPrime
 -- you just defined.
 
 nextPrime :: Integer -> Integer
-nextPrime = undefined
+nextPrime x
+    | isPrime (x+1)  = x+1
+    | otherwise      = nextPrime (x+1)
