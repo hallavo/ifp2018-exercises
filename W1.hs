@@ -1,4 +1,10 @@
+
+{-# LANGUAGE TemplateHaskell, ViewPatterns, PartialTypeSignatures #-}
+
 module W1 where
+
+-- COULDN'T GET THIS TO WORK:
+import Debug.Trace 
 
 -- Week 1:
 --   * defining functions
@@ -221,8 +227,16 @@ funnyMin x y =
 -- * the function show transforms a number into a string
 -- * you'll need a (recursive) helper function
 
+pyramidHelper :: Integer -> Integer -> String -> String
+pyramidHelper n x result
+    | x <= n               = pyramidHelper n (x+1) (result ++ "," ++ show(x))
+    | n <  x && x < 2*n    = pyramidHelper n (x+1) (result ++ "," ++ show(n - mod x n)) 
+    | x == 2*n             = result ++ ",0"
+    | otherwise            = "ERROR"
+
 pyramid :: Integer -> String
-pyramid = undefined
+pyramid 0  = "0"
+pyramid n  = pyramidHelper n 1 "0"
 
 -- Ex 17: implement the function smallestDivisor that returns the
 -- smallest number (greater than 1) that divides the given number.
